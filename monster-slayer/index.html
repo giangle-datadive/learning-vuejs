@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Monster Slayer</title>
+  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="css/foundation.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+  <div id="app">
+    <section class="row">
+      <div class="small-6 columns">
+        <h1 class="text-center">YOU</h1>
+        <div class="healthbar">
+          <div :style="{width: Math.max(playerHealth, 0) + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+            {{ playerHealth }}
+          </div>
+        </div>
+      </div>
+      <div class="small-6 columns">
+        <h1 class="text-center">MONSTER</h1>
+        <div class="healthbar">
+          <div :style="{width: Math.max(monsterHealth, 0) + '%'}" class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
+            {{ monsterHealth }}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section v-if="!isStart" class="row controls">
+      <div class="small-12 columns">
+        <button @click="start" id="start-game">START NEW GAME</button>
+      </div>
+    </section>
+    <template v-else="isStart">
+      <section class="row controls">
+        <div class="small-12 columns">
+          <button @click="attack" id="attack">ATTACK</button>
+          <button @click="heal" id="heal">HEAL</button>
+          <button @click="giveUp" id="give-up">GIVE UP</button>
+        </div>
+      </section>
+      <section class="row log">
+        <div class="small-12 columns">
+          <ul>
+            <li v-for="log in logs" :class="log.isPlayer ? 'player-turn' : 'monster-turn'">
+              {{ log.text}}
+            </li>
+          </ul>
+        </div>
+      </section>
+    </template>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
